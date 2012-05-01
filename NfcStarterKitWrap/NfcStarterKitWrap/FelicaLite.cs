@@ -135,6 +135,26 @@ namespace NfcStarterKitWrap {
 		/// </summary>
 		public const UInt16 BLOCK_MC = 0x88;
 
+		/// <summary>
+		/// システムブロック：WCNT
+		/// </summary>
+		public const UInt16 BLOCK_WCNT = 0x90;
+
+		/// <summary>
+		/// システムブロック：MAC_A
+		/// </summary>
+		public const UInt16 BLOCK_MAC_A = 0x91;
+
+		/// <summary>
+		/// システムブロック：STATE
+		/// </summary>
+		public const UInt16 BLOCK_STATE = 0x92;
+
+		/// <summary>
+		/// システムブロック：CRC_CHECK
+		/// </summary>
+		public const UInt16 BLOCK_CRC_CHECK = 0xa0;
+
 
 		/// <summary>
 		/// 片側認証：マスター鍵サイズ

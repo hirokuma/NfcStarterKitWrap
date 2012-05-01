@@ -30,9 +30,9 @@
 			this.textBoxReadValue = new System.Windows.Forms.TextBox();
 			this.buttonRead = new System.Windows.Forms.Button();
 			this.comboBoxReadBlock = new System.Windows.Forms.ComboBox();
-			this.comboBoxWriteBlock = new System.Windows.Forms.ComboBox();
-			this.textBoxWriteValue = new System.Windows.Forms.TextBox();
 			this.buttonWrite = new System.Windows.Forms.Button();
+			this.textBoxWriteValue = new System.Windows.Forms.TextBox();
+			this.comboBoxWriteBlock = new System.Windows.Forms.ComboBox();
 			groupBox1 = new System.Windows.Forms.GroupBox();
 			label1 = new System.Windows.Forms.Label();
 			groupBox2 = new System.Windows.Forms.GroupBox();
@@ -101,7 +101,11 @@
             "SYS_C",
             "CKV",
             "CK",
-            "MC"});
+            "MC",
+            "WCNT",
+            "MAC_A",
+            "STATE",
+            "CRC_CHECK"});
 			this.comboBoxReadBlock.Location = new System.Drawing.Point(50, 29);
 			this.comboBoxReadBlock.Name = "comboBoxReadBlock";
 			this.comboBoxReadBlock.Size = new System.Drawing.Size(121, 20);
@@ -128,6 +132,26 @@
 			groupBox2.TabIndex = 1;
 			groupBox2.TabStop = false;
 			groupBox2.Text = "Write";
+			// 
+			// buttonWrite
+			// 
+			this.buttonWrite.Enabled = false;
+			this.buttonWrite.Location = new System.Drawing.Point(187, 29);
+			this.buttonWrite.Name = "buttonWrite";
+			this.buttonWrite.Size = new System.Drawing.Size(75, 23);
+			this.buttonWrite.TabIndex = 4;
+			this.buttonWrite.Text = "Write";
+			this.buttonWrite.UseVisualStyleBackColor = true;
+			this.buttonWrite.Click += new System.EventHandler(this.buttonWrite_Click);
+			// 
+			// textBoxWriteValue
+			// 
+			this.textBoxWriteValue.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.textBoxWriteValue.Location = new System.Drawing.Point(8, 75);
+			this.textBoxWriteValue.Name = "textBoxWriteValue";
+			this.textBoxWriteValue.Size = new System.Drawing.Size(331, 19);
+			this.textBoxWriteValue.TabIndex = 3;
+			this.textBoxWriteValue.TextChanged += new System.EventHandler(this.textBoxWriteValue_TextChanged);
 			// 
 			// label2
 			// 
@@ -161,26 +185,6 @@
 			this.comboBoxWriteBlock.Name = "comboBoxWriteBlock";
 			this.comboBoxWriteBlock.Size = new System.Drawing.Size(121, 20);
 			this.comboBoxWriteBlock.TabIndex = 1;
-			// 
-			// textBoxWriteValue
-			// 
-			this.textBoxWriteValue.Font = new System.Drawing.Font("ＭＳ ゴシック", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.textBoxWriteValue.Location = new System.Drawing.Point(8, 75);
-			this.textBoxWriteValue.Name = "textBoxWriteValue";
-			this.textBoxWriteValue.Size = new System.Drawing.Size(331, 19);
-			this.textBoxWriteValue.TabIndex = 3;
-			this.textBoxWriteValue.TextChanged += new System.EventHandler(this.textBoxWriteValue_TextChanged);
-			// 
-			// buttonWrite
-			// 
-			this.buttonWrite.Enabled = false;
-			this.buttonWrite.Location = new System.Drawing.Point(187, 29);
-			this.buttonWrite.Name = "buttonWrite";
-			this.buttonWrite.Size = new System.Drawing.Size(75, 23);
-			this.buttonWrite.TabIndex = 4;
-			this.buttonWrite.Text = "Write";
-			this.buttonWrite.UseVisualStyleBackColor = true;
-			this.buttonWrite.Click += new System.EventHandler(this.buttonWrite_Click);
 			// 
 			// FelicaLiteReadWrite
 			// 

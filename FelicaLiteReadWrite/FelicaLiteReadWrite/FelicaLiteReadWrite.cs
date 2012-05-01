@@ -60,16 +60,25 @@ namespace FelicaLiteReadWrite {
 			}
 
 			UInt16 block;
-			if(comboBoxReadBlock.SelectedIndex <= NfcStarterKitWrap.FelicaLite.BLOCK_REG) {
+			if(comboBoxReadBlock.SelectedIndex <= 14) {
+				// 0～14
 				block = (UInt16)comboBoxReadBlock.SelectedIndex;
 			}
+			else if(comboBoxReadBlock.SelectedIndex <= 23) {
+				// 15～23
+				block = (UInt16)(NfcStarterKitWrap.FelicaLite.BLOCK_RC + comboBoxReadBlock.SelectedIndex - 15);
+			}
+			else if(comboBoxReadBlock.SelectedIndex <= 26) {
+				// 24～26
+				block = (UInt16)(NfcStarterKitWrap.FelicaLite.BLOCK_WCNT + comboBoxReadBlock.SelectedIndex - 24);
+			}
 			else {
-				block = (UInt16)(comboBoxReadBlock.SelectedIndex
-						- NfcStarterKitWrap.FelicaLite.BLOCK_REG - 1 + NfcStarterKitWrap.FelicaLite.BLOCK_RC);
+				block = NfcStarterKitWrap.FelicaLite.BLOCK_CRC_CHECK;
 			}
 
 			byte[] rbuf = null;
 			ret = mLite.Read(ref rbuf, block);
+			mFNS.unpoll();
 			if(!ret) {
 				MessageBox.Show("Read fail");
 				return;
@@ -106,6 +115,7 @@ namespace FelicaLiteReadWrite {
 			}
 
 			ret = mLite.Write(mWriteValue, block);
+			mFNS.unpoll();
 			if(!ret) {
 				MessageBox.Show("Write fail");
 				writeWidgetEnabled(true);
