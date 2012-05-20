@@ -50,6 +50,8 @@ namespace FelicaLiteReadWrite {
 
 		private void buttonRead_Click(object sender, EventArgs e) {
 			textBoxReadValue.Text = "";
+			textBoxSc.Text = "";
+			textBoxIDm.Text = "";
 
 			bool ret;
 
@@ -58,6 +60,8 @@ namespace FelicaLiteReadWrite {
 				MessageBox.Show("Polling fail");
 				return;
 			}
+			textBoxIDm.Text = BitConverter.ToString(mFNS.NfcId);
+			textBoxSc.Text = mLite.SystemCode.ToString("x4");
 
 			UInt16 block;
 			if(comboBoxReadBlock.SelectedIndex <= 14) {

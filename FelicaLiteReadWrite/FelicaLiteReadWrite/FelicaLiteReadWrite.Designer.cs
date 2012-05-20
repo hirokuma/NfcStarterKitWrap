@@ -33,6 +33,10 @@
 			this.buttonWrite = new System.Windows.Forms.Button();
 			this.textBoxWriteValue = new System.Windows.Forms.TextBox();
 			this.comboBoxWriteBlock = new System.Windows.Forms.ComboBox();
+			this.textBoxSc = new System.Windows.Forms.TextBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
+			this.textBoxIDm = new System.Windows.Forms.TextBox();
 			groupBox1 = new System.Windows.Forms.GroupBox();
 			label1 = new System.Windows.Forms.Label();
 			groupBox2 = new System.Windows.Forms.GroupBox();
@@ -186,11 +190,49 @@
 			this.comboBoxWriteBlock.Size = new System.Drawing.Size(121, 20);
 			this.comboBoxWriteBlock.TabIndex = 1;
 			// 
+			// textBoxSc
+			// 
+			this.textBoxSc.Location = new System.Drawing.Point(39, 275);
+			this.textBoxSc.Name = "textBoxSc";
+			this.textBoxSc.ReadOnly = true;
+			this.textBoxSc.Size = new System.Drawing.Size(100, 19);
+			this.textBoxSc.TabIndex = 2;
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(13, 278);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(20, 12);
+			this.label3.TabIndex = 3;
+			this.label3.Text = "SC";
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(169, 278);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(25, 12);
+			this.label4.TabIndex = 4;
+			this.label4.Text = "IDm";
+			// 
+			// textBoxIDm
+			// 
+			this.textBoxIDm.Location = new System.Drawing.Point(200, 275);
+			this.textBoxIDm.Name = "textBoxIDm";
+			this.textBoxIDm.ReadOnly = true;
+			this.textBoxIDm.Size = new System.Drawing.Size(152, 19);
+			this.textBoxIDm.TabIndex = 5;
+			// 
 			// FelicaLiteReadWrite
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(370, 309);
+			this.Controls.Add(this.textBoxIDm);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.textBoxSc);
 			this.Controls.Add(groupBox2);
 			this.Controls.Add(groupBox1);
 			this.Name = "FelicaLiteReadWrite";
@@ -201,6 +243,7 @@
 			groupBox2.ResumeLayout(false);
 			groupBox2.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -212,6 +255,10 @@
 		private System.Windows.Forms.TextBox textBoxWriteValue;
 		private System.Windows.Forms.ComboBox comboBoxWriteBlock;
 		private System.Windows.Forms.Button buttonWrite;
+		private System.Windows.Forms.TextBox textBoxSc;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.TextBox textBoxIDm;
 	}
 }
 
