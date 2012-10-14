@@ -248,15 +248,14 @@ namespace NfcStarterKitWrap {
 		/// <returns>処理結果</returns>
 		public bool Issuance1(byte[] dfd, byte[] masterKey, byte[] keyVersion) {
 			// 7.3.3 IDの設定
-			byte[] id = null;
-			if(!writeID(ref id, dfd)) {
+			if(!writeID(dfd)) {
 				mLastError = "fail: write ID";
 				return false;
 			}
 
 			// 7.3.4 カード鍵の書き込み
 			// 7.3.5 カード鍵の確認
-			if(!writeCardKey(id, masterKey)) {
+			if(!writeCardKey(masterKey)) {
 				mLastError = "fail: write Card Key";
 				return false;
 			}
@@ -341,13 +340,13 @@ namespace NfcStarterKitWrap {
 		public int MasterKeyWeakness(byte[] masterKey) {
 			int same = 0;
 			for(int len = 0; len < MASTERKEY_SIZE/3; len++) {
-				if(masterKey[len] == masterKey[8 + len]) {
+				if((masterKey[len] & 0xfe) == (masterKey[8 + len] & 0xfe)) {
 					same++;
 				}
-				if(masterKey[8 + len] == masterKey[16 + len]) {
+				if((masterKey[8 + len] & 0xfe) == (masterKey[16 + len] & 0xfe)) {
 					same++;
 				}
-				if(masterKey[len] == masterKey[16 + len]) {
+				if((masterKey[len] & 0xfe) == (masterKey[16 + len] & 0xfe)) {
 					same++;
 				}
 			}
@@ -362,9 +361,10 @@ namespace NfcStarterKitWrap {
 		 * ID設定
 		 *
 		 */
-		private bool writeID(ref byte[] id, byte[] dfd) {
+		private bool writeID(byte[] dfd) {
 			bool b;
 
+			byte[] id = null;
 			b = Read(ref id, BLOCK_D_ID);
 			if(!b) {
 				return false;
@@ -423,14 +423,19 @@ namespace NfcStarterKitWrap {
 		/**
 		 * カード鍵書き込み(7.3.4 カード鍵の書き込み)
 		 *
-		 * @param id		ID(16byte)
 		 * @param masterKey	個別化マスター鍵(24byte)
 		 *
 		 * @return
 		 */
-		private bool writeCardKey(byte[] id, byte[] masterKey) {
+		private bool writeCardKey(byte[] masterKey) {
 			bool b;
 			byte[] ck = new byte[support.BLOCK_SIZE];
+
+			byte[] id = null;
+			b = Read(ref id, BLOCK_ID);
+			if(!b) {
+				return false;
+			}
 
 			b = calcPersonalCardKey(ck, masterKey, id);
 			if(!b) {

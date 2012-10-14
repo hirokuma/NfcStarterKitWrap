@@ -159,7 +159,11 @@ namespace NfcStarterKitWrap {
 		// メッセージループを回したいので使っている。
 		private String mMsgStrOfFind = "find";
 		private String mMsgStrOfEnable = "enable";
-		private static ListenerWindow mListenerWindow = new ListenerWindow();
+#if true
+		private static ListenerWindow mListener = new ListenerWindow();
+#else
+		private static ListenFilter mListener = new ListenFilter();
+#endif
 		private MessageHandler mMessageHandler = null;
 
 		private byte[] mNfcId = null;	// NFCID
@@ -242,13 +246,13 @@ namespace NfcStarterKitWrap {
 				return false;
 			}
 
-			bRet = mListenerWindow.WatchMessage(card_find_message);
+			bRet = mListener.WatchMessage(card_find_message);
 			if(bRet == false) {
 				Console.Write("Failed: WatchMessage\n");
 				return false;
 			}
 
-			bRet = mListenerWindow.WatchMessage(card_enable_message);
+			bRet = mListener.WatchMessage(card_enable_message);
 			if(bRet == false) {
 				Console.Write("Failed: WatchMessage\n");
 				return false;
@@ -256,7 +260,7 @@ namespace NfcStarterKitWrap {
 
 			mMessageHandler
 				= new MessageHandler(card_find_message, card_enable_message);
-			mListenerWindow.handler
+			mListener.handler
 				+= new MessageReceivedEventHandler(mMessageHandler.messageHandlerFunc);
 
 			// SDK for NFC Starter Kit初期化
@@ -299,7 +303,7 @@ namespace NfcStarterKitWrap {
 				ErrorRoutine();
 			}
 
-			mListenerWindow.Close();
+			mListener.Close();
 		}
 
 
@@ -323,7 +327,7 @@ namespace NfcStarterKitWrap {
 			unpoll();
 
 			bool bRet = mFeliCaNfcDllWrapperClass.FeliCaLibNfcSetPollCallbackParameters(
-				mListenerWindow.Handle,
+				mListener.Handle,
 				mMsgStrOfFind,
 				mMsgStrOfEnable);
 			if(bRet == false) {
@@ -337,8 +341,10 @@ namespace NfcStarterKitWrap {
 				return false;
 			}
 
-			mListenerWindow.Visible = false;
-			mListenerWindow.ShowDialog();
+			//メッセージループを回すためにこうしているが、なんとかならんか。
+			//まあ、なんとかしたかったら非同期にするしかないんだろうがね。
+			mListener.Visible = false;
+			mListener.ShowDialog();
 
 			bRet = mFeliCaNfcDllWrapperClass.FeliCaLibNfcStopPollMode();
 			if(bRet == false) {
@@ -683,6 +689,53 @@ namespace NfcStarterKitWrap {
 			}
 		}
 
+		////////////////////////////////////////////////////////////////////////////
+
+
+		class ListenFilter : IMessageFilter {
+			private const Int32 MAX_MESSAGES = 2;
+			public event MessageReceivedEventHandler handler;
+			private UInt32[] messageSet = new UInt32[MAX_MESSAGES];
+			private Int32 registeredMessage = 0;
+
+			public bool WatchMessage(UInt32 message) {
+				if(registeredMessage < messageSet.Length) {
+					messageSet[registeredMessage] = message;
+					registeredMessage++;
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+
+			public bool PreFilterMessage(ref Message m) {
+				bool handleMessage = false;
+				for(Int32 i = 0; i < registeredMessage; i++) {
+					if(messageSet[i] == m.Msg) {
+						handleMessage = true;
+					}
+				}
+
+				if(handleMessage && handler != null) {
+					handler(null, new MessageReceivedEventArgs(m));
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+		}
+
+
+
+
+
+
+
+		////////////////////////////////////////////////////////////////////////////
+
+
 		/// <summary>
 		/// メッセージハンドラクラス
 		/// </summary>
@@ -782,7 +835,7 @@ namespace NfcStarterKitWrap {
 				}
 				else if(e.Message.Msg == mCardEnableMessage) {
 					mResult = true;
-					mListenerWindow.Close();
+					mListener.Close();
 					return;
 				}
 

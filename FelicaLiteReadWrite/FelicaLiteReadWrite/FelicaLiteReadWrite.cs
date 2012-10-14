@@ -109,8 +109,12 @@ namespace FelicaLiteReadWrite {
 			}
 
 			UInt16 block;
-			if(comboBoxWriteBlock.SelectedIndex <= NfcStarterKitWrap.FelicaLite.BLOCK_REG) {
+			if(comboBoxWriteBlock.SelectedIndex <= 14) {
 				block = (UInt16)comboBoxWriteBlock.SelectedIndex;
+			}
+			else if(comboBoxWriteBlock.SelectedIndex <= 23) {
+				// 15～23
+				block = (UInt16)(NfcStarterKitWrap.FelicaLite.BLOCK_RC + comboBoxWriteBlock.SelectedIndex - 15);
 			}
 			else {
 				MessageBox.Show("out of range");

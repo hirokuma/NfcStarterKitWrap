@@ -184,7 +184,21 @@
             "PAD10",
             "PAD11",
             "PAD12",
-            "PAD13"});
+            "PAD13",
+            "REG",
+            "RC",
+            "MAC",
+            "ID",
+            "D_ID",
+            "SER_C",
+            "SYS_C",
+            "CKV",
+            "CK",
+            "MC",
+            "WCNT",
+            "MAC_A",
+            "STATE",
+            "CRC_CHECK"});
 			this.comboBoxWriteBlock.Location = new System.Drawing.Point(50, 31);
 			this.comboBoxWriteBlock.Name = "comboBoxWriteBlock";
 			this.comboBoxWriteBlock.Size = new System.Drawing.Size(121, 20);
