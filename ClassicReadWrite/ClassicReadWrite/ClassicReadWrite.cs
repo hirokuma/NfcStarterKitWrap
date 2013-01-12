@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace FelicaLiteReadWrite {
 	public partial class UltralightReadWrite : Form {
 
-		private NfcStarterKitWrap.support mFNS = new NfcStarterKitWrap.support();
+		private NfcStarterKitWrap.nfc mFNS = new NfcStarterKitWrap.nfc();
 		private NfcStarterKitWrap.MifareClassic mClassic = null;
 		private byte[] mWriteValue = new byte[NfcStarterKitWrap.MifareClassic.WRITABLE_SIZE];
 

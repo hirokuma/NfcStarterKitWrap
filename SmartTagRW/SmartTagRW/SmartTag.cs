@@ -58,7 +58,7 @@ namespace SmartTagRW {
 		/// <summary>
 		/// データ部に書き込み可能な最大バイト数
 		/// </summary>
-		public const int WRITABLE_DATABYTES = NfcStarterKitWrap.support.BLOCK_SIZE * WRITABLE_DATASIZE;
+		public const int WRITABLE_DATABYTES = NfcStarterKitWrap.nfc.BLOCK_SIZE * WRITABLE_DATASIZE;
 
 		/// <summary>
 		/// レイアウト番号の最小値
@@ -91,7 +91,7 @@ namespace SmartTagRW {
 		private const byte REG_IMAGE = 0xb2;
 		private const byte DISPLAY = 0xa0;
 
-		private NfcStarterKitWrap.support mFNS = null;
+		private NfcStarterKitWrap.nfc mFNS = null;
 		private String mLastError = "";
 		private TagStatus mStatus = new TagStatus();
 		private byte mSeq = 0;
@@ -104,8 +104,8 @@ namespace SmartTagRW {
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="fns">init()済みのNfcStarterKit.support</param>
-		public SmartTag(NfcStarterKitWrap.support fns) {
+		/// <param name="fns">init()済みのNfcStarterKit.nfc</param>
+		public SmartTag(NfcStarterKitWrap.nfc fns) {
 			mFNS = fns;
 			mFNS.setTimeout(6000);
 		}
@@ -181,7 +181,7 @@ namespace SmartTagRW {
 			int data_rest = 0;
 			if(data != null) {
 				data_rest = data.Length;
-				data_blocks = (data.Length + NfcStarterKitWrap.support.BLOCK_SIZE - 1) / NfcStarterKitWrap.support.BLOCK_SIZE;
+				data_blocks = (data.Length + NfcStarterKitWrap.nfc.BLOCK_SIZE - 1) / NfcStarterKitWrap.nfc.BLOCK_SIZE;
 			}
 			int frames = (data_blocks + WRITABLE_DATASIZE - 1) / WRITABLE_DATASIZE;
 			if(frames == 0) {
@@ -213,7 +213,7 @@ namespace SmartTagRW {
 
 					frm_data[3] = (byte)len;
 				}
-				ret = Write(frm_data, (byte)(1 + (frm_data[3] + NfcStarterKitWrap.support.BLOCK_SIZE - 1) / NfcStarterKitWrap.support.BLOCK_SIZE));
+				ret = Write(frm_data, (byte)(1 + (frm_data[3] + NfcStarterKitWrap.nfc.BLOCK_SIZE - 1) / NfcStarterKitWrap.nfc.BLOCK_SIZE));
 				if(!ret) {
 					break;
 				}
@@ -241,7 +241,7 @@ namespace SmartTagRW {
 
 			b = WriteCommand(GET_STATUS, null, null);
 			if(b) {
-				byte[] buf = new byte[NfcStarterKitWrap.support.BLOCK_SIZE * 2];
+				byte[] buf = new byte[NfcStarterKitWrap.nfc.BLOCK_SIZE * 2];
 				b = Read(ref buf, 2);
 				if(b) {
 					mStatus.proc = (TagStatus.ProcStat)buf[3];

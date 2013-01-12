@@ -37,7 +37,7 @@ namespace NfcStarterKitWrap {
 		//------------------------------------------------------------------------------//
 
 		private byte[] AUTH_KEY = new byte[] { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };
-		private support mFNS = null;
+		private nfc mFNS = null;
 		private String mLastError = "";
 
 
@@ -48,8 +48,8 @@ namespace NfcStarterKitWrap {
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="fns">init()済みのNfcStarterKit.support</param>
-		public MifareClassic(support fns) {
+		/// <param name="fns">init()済みのNfcStarterKit.nfc</param>
+		public MifareClassic(nfc fns) {
 			mFNS = fns;
 		}
 

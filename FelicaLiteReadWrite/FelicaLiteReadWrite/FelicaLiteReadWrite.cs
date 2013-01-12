@@ -9,12 +9,12 @@ using System.Windows.Forms;
 namespace FelicaLiteReadWrite {
 	public partial class FelicaLiteReadWrite : Form {
 
-		private NfcStarterKitWrap.support mFNS = new NfcStarterKitWrap.support();
+		private NfcStarterKitWrap.nfc mFNS = new NfcStarterKitWrap.nfc();
 		private NfcStarterKitWrap.FelicaLite mLite = null;
-		private byte[] mWriteValue = new byte[NfcStarterKitWrap.support.BLOCK_SIZE];
+		private byte[] mWriteValue = new byte[NfcStarterKitWrap.nfc.BLOCK_SIZE];
 
 		public FelicaLiteReadWrite() {
-			if(!mFNS.init()) {
+			if(!mFNS.init(this)) {
 				MessageBox.Show("SDK for NFC Starter Kit fail");
 				Environment.Exit(0);
 				return;
@@ -33,10 +33,10 @@ namespace FelicaLiteReadWrite {
 		private void textBoxWriteValue_TextChanged(object sender, EventArgs e) {
 			buttonWrite.Enabled = false;
 
-			if(textBoxWriteValue.Text.Length != NfcStarterKitWrap.support.BLOCK_SIZE* 2) {
+			if(textBoxWriteValue.Text.Length != NfcStarterKitWrap.nfc.BLOCK_SIZE* 2) {
 				return;
 			}
-			for(int len = 0; len < NfcStarterKitWrap.support.BLOCK_SIZE; len++) {
+			for(int len = 0; len < NfcStarterKitWrap.nfc.BLOCK_SIZE; len++) {
 				try {
 					mWriteValue[len] = (byte)Convert.ToInt32(textBoxWriteValue.Text.Substring(len * 2, 2), 16);
 				}

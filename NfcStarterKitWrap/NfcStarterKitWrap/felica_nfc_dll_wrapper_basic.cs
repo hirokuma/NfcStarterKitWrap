@@ -7,50 +7,119 @@ using System.Text;
 using System.Runtime.InteropServices;
 
 // structs
+
+/// <summary>
+/// DEVICE_DATA_NFC_14443A_18092_106K
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct DEVICE_DATA_NFC_14443A_18092_106K
 {
+	/// <summary>
+	/// ターゲット数
+	/// </summary>
     public UInt32 target_number;
+	/// <summary>
+	/// SENS_RES
+	/// </summary>
     public UInt16 sens_res;
+	/// <summary>
+	/// SEL_RES
+	/// </summary>
     public byte sel_res;
+	/// <summary>
+	/// NFCID1サイズ
+	/// </summary>
     public byte NFCID1_size;
+	/// <summary>
+	/// NFCID1
+	/// </summary>
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
     public byte[] NFCID1;
+	/// <summary>
+	/// ATSサイズ
+	/// </summary>
     public byte ATS_size;
+	/// <summary>
+	/// ATS
+	/// </summary>
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1)]
     public byte[] ATS;
 }
 
+/// <summary>
+/// DEVICE_DATA_NFC_14443B_106K
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct DEVICE_DATA_NFC_14443B_106K
 {
+	/// <summary>
+	/// ターゲット数
+	/// </summary>
     public UInt32 target_number;
+	/// <summary>
+	/// ATQB
+	/// </summary>
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = 12)]
     public byte[] ATQB;
+	/// <summary>
+	/// ATTRIBサイズ
+	/// </summary>
     public byte ATTRIB_size;
+	/// <summary>
+	/// ATTRIB
+	/// </summary>
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1)]
     public byte[] ATTRIB;
 }
 
-
+/// <summary>
+/// DEVICE_DATA_NFC_18092_212_424K
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct DEVICE_DATA_NFC_18092_212_424K
 {
+	/// <summary>
+	/// ID?
+	/// </summary>
     public byte id;
+	/// <summary>
+	/// ターゲット数
+	/// </summary>
     public UInt32 target_number;
+	/// <summary>
+	/// NFCID2(IDm)
+	/// </summary>
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
     public byte[] NFCID2;
+	/// <summary>
+	/// PAD(PMm?)
+	/// </summary>
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
     public byte[] Pad;
+	/// <summary>
+	/// RDサイズ
+	/// </summary>
     public byte RD_size;
+	/// <summary>
+	/// RD
+	/// </summary>
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
     public byte[] RD;
 }
 
+/// <summary>
+/// DEVICE_INFO
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct DEVICE_INFO
 {
+	/// <summary>
+	/// ターゲット数
+	/// </summary>
     public UInt32 target_device;
+	/// <summary>
+	/// デバイス情報
+	/// </summary>
     [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1)]
     public byte[] dev_info;
 }

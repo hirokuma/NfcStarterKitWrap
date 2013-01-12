@@ -14,7 +14,7 @@ namespace SmartTagRW {
 
 		private Bitmap bitmapFile;
 		private Bitmap bitmapBW;
-		private NfcStarterKitWrap.support mFNS = new NfcStarterKitWrap.support();
+		private NfcStarterKitWrap.nfc mFNS = new NfcStarterKitWrap.nfc();
 		private SmartTag mSmartTag = null;
 
 		private const int PIX_WHITE = 255;

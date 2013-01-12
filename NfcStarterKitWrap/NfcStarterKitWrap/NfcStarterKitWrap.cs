@@ -2,6 +2,7 @@
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Drawing;
 
 namespace NfcStarterKitWrap {
 
@@ -9,7 +10,8 @@ namespace NfcStarterKitWrap {
 	/// felica_nfc_dll_wrapper_basicのラッパクラス
 	/// SDK for NFC Starter KitのAPIを直接アクセスするのが面倒なので作った。
 	/// </summary>
-	public class support {
+	/// 
+	public class nfc {
 
 		//------------------------------------------------------------------------------//
 		// 公開定義
@@ -157,14 +159,11 @@ namespace NfcStarterKitWrap {
 
 		// WIN32 API用
 		// メッセージループを回したいので使っている。
-		private String mMsgStrOfFind = "find";
-		private String mMsgStrOfEnable = "enable";
-#if true
-		private static ListenerWindow mListener = new ListenerWindow();
-#else
-		private static ListenFilter mListener = new ListenFilter();
-#endif
+		private String kMsgFind = "find";
+		private String kMsgEnable = "enable";
+		private static ListenerWindow mListener = new FormWaiting();
 		private MessageHandler mMessageHandler = null;
+		private Form mParent = null;
 
 		private byte[] mNfcId = null;	// NFCID
 		private byte[] mRD = null;		// Request Data
@@ -177,7 +176,7 @@ namespace NfcStarterKitWrap {
 		/// <summary>
 		/// コンストラクタ。
 		/// </summary>
-		public support() {
+		public nfc() {
 			;
 		}
 
@@ -218,6 +217,16 @@ namespace NfcStarterKitWrap {
 		//------------------------------------------------------------------------------//
 
 		/// <summary>
+		/// 初期化
+		/// </summary>
+		/// <param name="frm">親ウィンドウ。「かざして」画面を中央に出せる。</param>
+		/// <returns></returns>
+		public bool init(Form frm) {
+			mParent = frm;
+			return init();
+		}
+
+		/// <summary>
 		/// 初期化。
 		/// 最初に必ず呼び出すこと。
 		/// </summary>
@@ -234,34 +243,10 @@ namespace NfcStarterKitWrap {
 			mFeliCaNfcDllWrapperClass = new felica_nfc_dll_wrapper();
 
 			// Win32メッセージ登録
-			UInt32 card_find_message = RegisterWindowMessage(mMsgStrOfFind);
-			if(card_find_message == 0) {
-				Console.Write("Failed: RegisterWindowMessage\n");
+			bRet = mListener.init(kMsgFind, kMsgEnable, ref mMessageHandler);
+			if(!bRet) {
 				return false;
 			}
-
-			UInt32 card_enable_message = RegisterWindowMessage(mMsgStrOfEnable);
-			if(card_enable_message == 0) {
-				Console.Write("Failed: RegisterWindowMessage\n");
-				return false;
-			}
-
-			bRet = mListener.WatchMessage(card_find_message);
-			if(bRet == false) {
-				Console.Write("Failed: WatchMessage\n");
-				return false;
-			}
-
-			bRet = mListener.WatchMessage(card_enable_message);
-			if(bRet == false) {
-				Console.Write("Failed: WatchMessage\n");
-				return false;
-			}
-
-			mMessageHandler
-				= new MessageHandler(card_find_message, card_enable_message);
-			mListener.handler
-				+= new MessageReceivedEventHandler(mMessageHandler.messageHandlerFunc);
 
 			// SDK for NFC Starter Kit初期化
 			bRet = mFeliCaNfcDllWrapperClass.FeliCaLibNfcInitialize();
@@ -328,8 +313,8 @@ namespace NfcStarterKitWrap {
 
 			bool bRet = mFeliCaNfcDllWrapperClass.FeliCaLibNfcSetPollCallbackParameters(
 				mListener.Handle,
-				mMsgStrOfFind,
-				mMsgStrOfEnable);
+				kMsgFind,
+				kMsgEnable);
 			if(bRet == false) {
 				Console.Write("Failed: FeliCaLibNfcSetPollCallbackParameters\n");
 				return false;
@@ -343,7 +328,11 @@ namespace NfcStarterKitWrap {
 
 			//メッセージループを回すためにこうしているが、なんとかならんか。
 			//まあ、なんとかしたかったら非同期にするしかないんだろうがね。
-			mListener.Visible = false;
+			//mListener.Visible = false;
+			if(mParent != null) {
+				mListener.Location = new Point(mParent.Location.X + (mParent.Width - mListener.Width) / 2,
+					mParent.Location.Y + (mParent.Height - mListener.Height) / 2);
+			}
 			mListener.ShowDialog();
 
 			bRet = mFeliCaNfcDllWrapperClass.FeliCaLibNfcStopPollMode();
@@ -565,11 +554,26 @@ namespace NfcStarterKitWrap {
 		/// <param name="svc">サービス。ServiceReadWriteNfcFがよいだろう。</param>
 		/// <returns>処理結果</returns>
 		public bool NfcF_Write(byte[] buf, UInt16[] block, byte block_num, byte[] svc) {
+			return NfcF_Write(buf, block, block_num, svc, 0);
+		}
+
+
+		/// <summary>
+		/// 書き込み(NFC-F用)
+		/// 面倒なので、サービスは１種類にしている。
+		/// </summary>
+		/// <param name="buf">書き込みデータ</param>
+		/// <param name="block">書き込み開始ブロック</param>
+		/// <param name="block_num">書き込みブロック数。blockよりも小さい場合は、blockの先頭からblock_numだけ書き込む。</param>
+		/// <param name="svc">サービス。ServiceReadWriteNfcFがよいだろう。</param>
+		/// <param name="offset">bufのオフセット</param>
+		/// <returns>処理結果</returns>
+		public bool NfcF_Write(byte[] buf, UInt16[] block, byte block_num, byte[] svc, int offset) {
 			if(block.Length < block_num) {
 				//あっとらんよ
 				return false;
 			}
-			byte[] cmd = new byte[1 + 1 + 8 + 1 + 2 + 1 + 2 + support.BLOCK_SIZE * block_num];
+			byte[] cmd = new byte[1 + 1 + 8 + 1 + 2 + 1 + 2 + nfc.BLOCK_SIZE * block_num];
 			cmd[0] = (byte)cmd.Length;		//LEN
 			cmd[1] = 0x08;
 			Buffer.BlockCopy(mNfcId, 0, cmd, 2, 8);	//IDm
@@ -582,7 +586,7 @@ namespace NfcStarterKitWrap {
 				cmd[14 + i * 2] = (byte)(bl >> 8);		//BE
 				cmd[15 + i * 2] = (byte)(bl & 0x00ff);	//BE
 			}
-			Buffer.BlockCopy(buf, 0, cmd, 14 + block_num * 2, support.BLOCK_SIZE * block_num);
+			Buffer.BlockCopy(buf, offset, cmd, 14 + block_num * 2, nfc.BLOCK_SIZE * block_num);
 			UInt16 cmd_len = cmd[0];
 			byte[] res = new byte[256];
 			UInt16 res_len = 0x00;
@@ -597,8 +601,8 @@ namespace NfcStarterKitWrap {
 				return false;
 			}
 
-			int offset = 1 + 1 + 8;
-			if(res[offset] != 0x00) {
+			int ofs = 1 + 1 + 8;
+			if(res[ofs] != 0x00) {
 				return false;
 			}
 
@@ -624,113 +628,120 @@ namespace NfcStarterKitWrap {
 
 		internal delegate void MessageReceivedEventHandler(object sender, MessageReceivedEventArgs e);
 
-		internal class MessageReceivedEventArgs : EventArgs {
+		/// <summary>
+		/// 使うな
+		/// </summary>
+		public class MessageReceivedEventArgs : EventArgs {
 			private readonly Message _message;
-			public MessageReceivedEventArgs(Message message) { _message = message; }
-			public Message Message { get { return _message; } }
+
+			/// <summary>
+			/// 
+			/// </summary>
+			/// <param name="message"></param>
+			public MessageReceivedEventArgs(Message message) {
+				_message = message;
+			}
+
+			/// <summary>
+			/// 
+			/// </summary>
+			public Message Message {
+				get { return _message; }
+			}
 		}
 
 		/// <summary>
 		/// メッセージを受け取るウィンドウ
 		/// </summary>
-		internal class ListenerWindow : Form {
+		public class ListenerWindow : Form {
 			private const Int32 MAX_MESSAGES = 2;
-			public event MessageReceivedEventHandler handler;
+			private event MessageReceivedEventHandler mHandler;
 			private UInt32[] messageSet = new UInt32[MAX_MESSAGES];
-			private Int32 registeredMessage = 0;
 
+			/// <summary>
+			/// 内部用
+			/// </summary>
 			public ListenerWindow() {
 				this.Visible = false;
 			}
+			
+			/// <summary>
+			/// 初期化
+			/// </summary>
+			/// <param name="msgFind">Windowメッセージ文字列(カード検出)</param>
+			/// <param name="msgEnable">Windowメッセージ文字列(カード使用可能)</param>
+			/// <param name="msgHandler">メッセージ処理ハンドラ</param>
+			/// <returns></returns>
+			public bool init(String msgFind, String msgEnable, ref MessageHandler msgHandler) {
 
-			public bool WatchMessage(UInt32 message) {
-				if(registeredMessage < messageSet.Length) {
-					messageSet[registeredMessage] = message;
-					registeredMessage++;
-					return true;
-				}
-				else {
+				// Win32メッセージ登録
+				UInt32 card_find_message = RegisterWindowMessage(msgFind);
+				if(card_find_message == 0) {
+					Console.Write("Failed: RegisterWindowMessage\n");
 					return false;
 				}
-			}
 
-			protected override CreateParams CreateParams {
-				get {
-					const Int32 WS_EX_TOOLWINDOW = 0x80;
-					const Int64 WS_POPUP = 0x80000000;
-					const Int32 WS_VISIBLE = 0x10000000;
-					const Int32 WS_SYSMENU = 0x80000;
-					const Int32 WS_MAXIMIZEBOX = 0x10000;
-
-					CreateParams cp = base.CreateParams;
-					cp.ExStyle = WS_EX_TOOLWINDOW;
-					cp.Style = unchecked((Int32)WS_POPUP) |
-						WS_VISIBLE | WS_SYSMENU | WS_MAXIMIZEBOX;
-					cp.Width = 0;
-					cp.Height = 0;
-
-					return cp;
+				UInt32 card_enable_message = RegisterWindowMessage(msgEnable);
+				if(card_enable_message == 0) {
+					Console.Write("Failed: RegisterWindowMessage\n");
+					return false;
 				}
+
+				messageSet[0] = card_find_message;
+				messageSet[1] = card_enable_message;
+
+				msgHandler =
+					new MessageHandler(card_find_message, card_enable_message);
+				
+				
+				mHandler +=
+					new MessageReceivedEventHandler(msgHandler.messageHandlerFunc);
+
+				return true;
 			}
 
+
+
+			///// <summary>
+			///// Window属性
+			///// </summary>
+			//protected override CreateParams CreateParams {
+			//    get {
+			//        const Int32 WS_EX_TOOLWINDOW = 0x80;
+			//        const Int64 WS_POPUP = 0x80000000;
+			//        const Int32 WS_VISIBLE = 0x10000000;
+			//        const Int32 WS_SYSMENU = 0x80000;
+			//        const Int32 WS_MAXIMIZEBOX = 0x10000;
+
+			//        CreateParams cp = base.CreateParams;
+			//        cp.ExStyle = WS_EX_TOOLWINDOW;
+			//        cp.Style = unchecked((Int32)WS_POPUP) |
+			//            WS_VISIBLE | WS_SYSMENU | WS_MAXIMIZEBOX;
+			//        cp.Width = 0;
+			//        cp.Height = 0;
+
+			//        return cp;
+			//    }
+			//}
+
+			/// <summary>
+			/// Windowメッセージ処理
+			/// </summary>
+			/// <param name="m"></param>
 			protected override void WndProc(ref Message m) {
 				bool handleMessage = false;
-				for(Int32 i = 0; i < registeredMessage; i++) {
+				for(Int32 i = 0; i < MAX_MESSAGES; i++) {
 					if(messageSet[i] == m.Msg) {
 						handleMessage = true;
 					}
 				}
 
-				if(handleMessage && handler != null) {
-					handler(null, new MessageReceivedEventArgs(m));
+				if(handleMessage && mHandler != null) {
+					mHandler(null, new MessageReceivedEventArgs(m));
 				}
 				base.WndProc(ref m);
-				return;
 			}
 		}
-
-		////////////////////////////////////////////////////////////////////////////
-
-
-		class ListenFilter : IMessageFilter {
-			private const Int32 MAX_MESSAGES = 2;
-			public event MessageReceivedEventHandler handler;
-			private UInt32[] messageSet = new UInt32[MAX_MESSAGES];
-			private Int32 registeredMessage = 0;
-
-			public bool WatchMessage(UInt32 message) {
-				if(registeredMessage < messageSet.Length) {
-					messageSet[registeredMessage] = message;
-					registeredMessage++;
-					return true;
-				}
-				else {
-					return false;
-				}
-			}
-
-			public bool PreFilterMessage(ref Message m) {
-				bool handleMessage = false;
-				for(Int32 i = 0; i < registeredMessage; i++) {
-					if(messageSet[i] == m.Msg) {
-						handleMessage = true;
-					}
-				}
-
-				if(handleMessage && handler != null) {
-					handler(null, new MessageReceivedEventArgs(m));
-					return true;
-				}
-				else {
-					return false;
-				}
-			}
-		}
-
-
-
-
-
 
 
 		////////////////////////////////////////////////////////////////////////////
@@ -739,7 +750,7 @@ namespace NfcStarterKitWrap {
 		/// <summary>
 		/// メッセージハンドラクラス
 		/// </summary>
-		internal class MessageHandler {
+		public class MessageHandler {
 			private bool mResult;
 
 			private UInt32 mTargetNumber;
@@ -899,4 +910,5 @@ namespace NfcStarterKitWrap {
 			}
 		}
 	}
+
 }

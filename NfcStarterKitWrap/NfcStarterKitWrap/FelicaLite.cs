@@ -176,7 +176,7 @@ namespace NfcStarterKitWrap {
 		// 非公開定義
 		//------------------------------------------------------------------------------//
 
-		private support mFNS = null;
+		private nfc mFNS = null;
 		private String mLastError = "";
 
 
@@ -187,8 +187,8 @@ namespace NfcStarterKitWrap {
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="fns">init()済みのNfcStarterKit.support</param>
-		public FelicaLite(support fns) {
+		/// <param name="fns">init()済みのNfcStarterKit.nfc</param>
+		public FelicaLite(nfc fns) {
 			mFNS = fns;
 		}
 
@@ -203,7 +203,7 @@ namespace NfcStarterKitWrap {
 		/// システムコード
 		/// </summary>
 		public UInt16 SystemCode {
-			get { return (UInt16)((mFNS.RD[support.RD_SYSCODE1] << 8) | mFNS.RD[support.RD_SYSCODE2]); }
+			get { return (UInt16)((mFNS.RD[nfc.RD_SYSCODE1] << 8) | mFNS.RD[nfc.RD_SYSCODE2]); }
 		}
 
 		/// <summary>
@@ -231,12 +231,24 @@ namespace NfcStarterKitWrap {
 		/// <summary>
 		/// 書き込み(1ブロック)
 		/// </summary>
-		/// <param name="buf"></param>
+		/// <param name="buf">書き込みデータ</param>
 		/// <param name="block">書き込みブロック</param>
 		/// <returns>処理結果</returns>
 		public bool Write(byte[] buf, UInt16 block) {
 			UInt16[] blocks = new UInt16[] { block };
 			return mFNS.NfcF_Write(buf, blocks, 1, mFNS.SERVICE_READWRITE_NFCF);
+		}
+
+		/// <summary>
+		/// 書き込み(1ブロック、オフセット付き)
+		/// </summary>
+		/// <param name="buf">書き込みデータ</param>
+		/// <param name="block">書き込みブロック</param>
+		/// <param name="offset">書き込みデータの開始オフセット</param>
+		/// <returns>処理結果</returns>
+		public bool Write(byte[] buf, UInt16 block, int offset) {
+			UInt16[] blocks = new UInt16[] { block };
+			return mFNS.NfcF_Write(buf, blocks, 1, mFNS.SERVICE_READWRITE_NFCF, offset);
 		}
 
 		/// <summary>
@@ -319,7 +331,7 @@ namespace NfcStarterKitWrap {
 		/// <param name="masterKey">比較する個別化マスター鍵(24byte)</param>
 		/// <returns>true：MAC一致</returns>
 		public bool CheckMac(byte[] masterKey) {
-			byte[] ck = new byte[support.BLOCK_SIZE];
+			byte[] ck = new byte[nfc.BLOCK_SIZE];
 			byte[] rbuf = null;
 			bool b = Read(ref rbuf, BLOCK_ID);
 			if(!b) {
@@ -410,7 +422,7 @@ namespace NfcStarterKitWrap {
 			if(!b) {
 				return false;
 			}
-			for(int i = 0; i < support.BLOCK_SIZE; i++) {
+			for(int i = 0; i < nfc.BLOCK_SIZE; i++) {
 				if(rbuf[i] != buf[i]) {
 					return false;
 				}
@@ -429,7 +441,7 @@ namespace NfcStarterKitWrap {
 		 */
 		private bool writeCardKey(byte[] masterKey) {
 			bool b;
-			byte[] ck = new byte[support.BLOCK_SIZE];
+			byte[] ck = new byte[nfc.BLOCK_SIZE];
 
 			byte[] id = null;
 			b = Read(ref id, BLOCK_ID);
@@ -464,7 +476,7 @@ namespace NfcStarterKitWrap {
 		 * @return		true	書き込み成功
 		 */
 		private bool writeKeyVersion(byte[] keyVersion) {
-			byte[] buf = new byte[support.BLOCK_SIZE];
+			byte[] buf = new byte[nfc.BLOCK_SIZE];
 			buf[0] = keyVersion[0];
 			buf[1] = keyVersion[1];
 			bool b = writeWithCheck(buf, BLOCK_CKV);
@@ -484,7 +496,7 @@ namespace NfcStarterKitWrap {
 		 * @return		true	MAC一致
 		 */
 		private bool macCheck(byte[] ck) {
-			byte[] rc = new byte[support.BLOCK_SIZE];
+			byte[] rc = new byte[nfc.BLOCK_SIZE];
 			Random rnd = new Random(Environment.TickCount);
 			for(int i = 0; i < rc.Length; i++) {
 				rc[i] = (byte)rnd.Next(0x100);
@@ -534,7 +546,7 @@ namespace NfcStarterKitWrap {
 		 */
 		private bool calcMac(ref byte[] mac, byte[] ck, byte[] id, byte[] rc) {
 			mac = new byte[8];
-			byte[] sk = new byte[support.BLOCK_SIZE];
+			byte[] sk = new byte[nfc.BLOCK_SIZE];
 			byte[] ips = null;
 
 			byte[] key = new byte[24];

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace FelicaLiteIssuance {
 	public partial class FelicaLiteIssuance : Form {
 
-		private NfcStarterKitWrap.support mFNS = new NfcStarterKitWrap.support();
+		private NfcStarterKitWrap.nfc mFNS = new NfcStarterKitWrap.nfc();
 		private NfcStarterKitWrap.FelicaLite mLite = null;
 		private byte[] mMasterKey = new byte[NfcStarterKitWrap.FelicaLite.MASTERKEY_SIZE];
 		private byte[] mKeyVersion = new byte[NfcStarterKitWrap.FelicaLite.KEYVERSION_SIZE];

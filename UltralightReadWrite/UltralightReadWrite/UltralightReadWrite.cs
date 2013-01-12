@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace FelicaLiteReadWrite {
 	public partial class UltralightReadWrite : Form {
 
-		private NfcStarterKitWrap.support mFNS = new NfcStarterKitWrap.support();
+		private NfcStarterKitWrap.nfc mFNS = new NfcStarterKitWrap.nfc();
 		private NfcStarterKitWrap.MifareUltralight mLight = null;
 		private byte[] mWriteValue = new byte[NfcStarterKitWrap.MifareUltralight.WRITABLE_SIZE];
 
@@ -61,7 +61,7 @@ namespace FelicaLiteReadWrite {
 				return;
 			}
 			textBoxUID.Text = BitConverter.ToString(mFNS.NfcId);
-			textBoxSAK.Text = mFNS.RD[NfcStarterKitWrap.support.RD_SELRES].ToString("x2");
+			textBoxSAK.Text = mFNS.RD[NfcStarterKitWrap.nfc.RD_SELRES].ToString("x2");
 
 			byte block = (byte)comboBoxReadBlock.SelectedIndex;
 

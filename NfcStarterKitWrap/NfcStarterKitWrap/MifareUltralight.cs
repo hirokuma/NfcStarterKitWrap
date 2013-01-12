@@ -26,7 +26,7 @@ namespace NfcStarterKitWrap {
 		// 非公開定義
 		//------------------------------------------------------------------------------//
 
-		private support mFNS = null;
+		private nfc mFNS = null;
 		private String mLastError = "";
 
 
@@ -37,8 +37,8 @@ namespace NfcStarterKitWrap {
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="fns">init()済みのNfcStarterKit.support</param>
-		public MifareUltralight(support fns) {
+		/// <param name="fns">init()済みのNfcStarterKit.nfc</param>
+		public MifareUltralight(nfc fns) {
 			mFNS = fns;
 		}
 
