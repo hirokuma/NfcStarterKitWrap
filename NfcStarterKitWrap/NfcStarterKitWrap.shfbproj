@@ -33,18 +33,15 @@ http://www.sony.co.jp/Products/felica/business/products/ICS-D004_002_003.html</N
     <RootNamespaceTitle>SDK for NFC Starter Kit Wrapper</RootNamespaceTitle>
     <ApiFilter>
       <Filter entryType="Namespace" fullName="" isExposed="False" />
-      <Filter entryType="Namespace" fullName="NfcStarterKitWrap" isExposed="False">
-        <Filter entryType="Class" fullName="NfcStarterKitWrap.Felica" filterName="Felica" isExposed="True" />
-        <Filter entryType="Class" fullName="NfcStarterKitWrap.FelicaLite" filterName="FelicaLite" isExposed="True" />
-        <Filter entryType="Class" fullName="NfcStarterKitWrap.MifareClassic" filterName="MifareClassic" isExposed="True" />
-        <Filter entryType="Class" fullName="NfcStarterKitWrap.MifareUltralight" filterName="MifareUltralight" isExposed="True" />
-        <Filter entryType="Class" fullName="NfcStarterKitWrap.support" filterName="support" isExposed="True" />
-      </Filter>
-      <Filter entryType="Namespace" fullName="System" isExposed="True">
-        <Filter entryType="Class" fullName="System.Object" filterName="Object" isExposed="False" />
-        <Filter entryType="Class" fullName="System.ValueType" filterName="ValueType" isExposed="False" />
-      </Filter>
-    </ApiFilter>
+<Filter entryType="Namespace" fullName="NfcStarterKitWrap" isExposed="True">
+  <Filter entryType="Class" fullName="NfcStarterKitWrap.nfc.ListenerWindow" filterName="nfc.ListenerWindow" isExposed="False" />
+  <Filter entryType="Class" fullName="NfcStarterKitWrap.nfc.MessageHandler" filterName="nfc.MessageHandler" isExposed="False" />
+  <Filter entryType="Class" fullName="NfcStarterKitWrap.nfc.MessageReceivedEventArgs" filterName="nfc.MessageReceivedEventArgs" isExposed="False" />
+</Filter>
+<Filter entryType="Namespace" fullName="System" isExposed="True">
+  <Filter entryType="Class" fullName="System.Object" filterName="Object" isExposed="False" />
+  <Filter entryType="Class" fullName="System.ValueType" filterName="ValueType" isExposed="False" />
+</Filter></ApiFilter>
     <WebsiteSdkLinkType>None</WebsiteSdkLinkType>
     <FeedbackEMailAddress>
     </FeedbackEMailAddress>

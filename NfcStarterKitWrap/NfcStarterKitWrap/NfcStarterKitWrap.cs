@@ -586,7 +586,14 @@ namespace NfcStarterKitWrap {
 				cmd[14 + i * 2] = (byte)(bl >> 8);		//BE
 				cmd[15 + i * 2] = (byte)(bl & 0x00ff);	//BE
 			}
-			Buffer.BlockCopy(buf, offset, cmd, 14 + block_num * 2, nfc.BLOCK_SIZE * block_num);
+			if(buf.Length >= offset + nfc.BLOCK_SIZE * block_num) {
+				//全部
+				Buffer.BlockCopy(buf, offset, cmd, 14 + block_num * 2, nfc.BLOCK_SIZE * block_num);
+			}
+			else {
+				//残りだけコピー
+				Buffer.BlockCopy(buf, offset, cmd, 14 + block_num * 2, buf.Length - offset);
+			}
 			UInt16 cmd_len = cmd[0];
 			byte[] res = new byte[256];
 			UInt16 res_len = 0x00;
