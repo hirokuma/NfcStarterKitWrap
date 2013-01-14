@@ -258,12 +258,17 @@ namespace NfcStarterKitWrap {
 		/// <returns></returns>
 		public byte[] getRecord() {
 			if(mTnf == TNF_TYPE.EMPTY) {
-				return null;
+				mType = null;
+				mPayload = null;
 			}
 
 			int len = 0;
-			len += mType.Length;
-			len += mPayload.Length;
+			if(mType != null) {
+				len += mType.Length;
+			}
+			if(mPayload != null) {
+				len += mPayload.Length;
+			}
 			if((mID == null) || (mID.Length == 0)) {
 				len += 3;	//HEAD, TypeLen, PayloadLen
 			}
@@ -275,19 +280,23 @@ namespace NfcStarterKitWrap {
 			byte[] rec = new byte[len];
 			int pos = 0;
 			rec[pos++] = mHead;
-			rec[pos++] = (byte)mType.Length;
-			rec[pos++] = (byte)mPayload.Length;
+			rec[pos++] = (byte)((mType != null) ? mType.Length : 0);
+			rec[pos++] = (byte)((mPayload != null) ? mPayload.Length : 0);
 			if((mID != null) && (mID.Length > 0)) {
 				rec[pos++] = (byte)mID.Length;
 			}
-			Buffer.BlockCopy(mType, 0, rec, pos, mType.Length);
-			pos += mType.Length;
+			if(mType != null) {
+				Buffer.BlockCopy(mType, 0, rec, pos, mType.Length);
+				pos += mType.Length;
+			}
 			if((mID != null) && (mID.Length > 0)) {
 				Buffer.BlockCopy(mID, 0, rec, pos, mID.Length);
 				pos += mID.Length;
 			}
-			Buffer.BlockCopy(mPayload, 0, rec, pos, mPayload.Length);
-			pos += mPayload.Length;
+			if(mPayload != null) {
+				Buffer.BlockCopy(mPayload, 0, rec, pos, mPayload.Length);
+				pos += mPayload.Length;
+			}
 
 			return rec;
 		}
@@ -297,9 +306,14 @@ namespace NfcStarterKitWrap {
 		/// </summary>
 		/// <returns>NDEFレコード長</returns>
 		public int getLength() {
-			int len;
+			int len = 3;
 
-			len = 3 + mType.Length + mPayload.Length;
+			if(mType != null) {
+				len += mType.Length;
+			}
+			if(mPayload != null) {
+				len += mPayload.Length;
+			}
 			if((mID != null) && (mID.Length > 0)) {
 				len += 1 + mID.Length;
 			}
