@@ -275,7 +275,8 @@ namespace HandoverWifi_FeliCaLite {
 			rec_hs.Payload = hs_pl;
 
 			rec_cr.MB = false;
-			rec_cr.ME = true;
+//			rec_cr.ME = true;	//test
+			rec_cr.ME = false;
 			rec_cr.setType(NdefRecord.TNF_TYPE.MIME, TYPE_CR_WIFI);
 			rec_cr.ID = new byte[] { (byte)'0' };
 
@@ -330,7 +331,33 @@ namespace HandoverWifi_FeliCaLite {
 
 			//Nexus7のバグなのか知らないが、113～127byteのNDEFデータは読めない
 			if((113 <= msg_byte.Length) && (msg_byte.Length <= 127)) {
-				MessageBox.Show("Nexus7 cannot Read this NDEF data.");
+				MessageBox.Show("Nexus7 cannot Read this NDEF data.\nSo padding with Empty NDEF Record");
+
+				byte[] DUMMY_NDEF = new byte[] {
+					0x10,	//MB=0, ME=0, SR=1, EMPTY
+					0x00,	//Type Length = 0
+					0x00,	//Payload Length = 0
+
+					0x10,	//MB=0, ME=0, SR=1, EMPTY
+					0x00,	//Type Length = 0
+					0x00,	//Payload Length = 0
+
+					0x10,	//MB=0, ME=0, SR=1, EMPTY
+					0x00,	//Type Length = 0
+					0x00,	//Payload Length = 0
+
+					0x10,	//MB=0, ME=0, SR=1, EMPTY
+					0x00,	//Type Length = 0
+					0x00,	//Payload Length = 0
+
+					0x50,	//MB=0, ME=1, SR=1, EMPTY
+					0x00,	//Type Length = 0
+					0x00,	//Payload Length = 0
+				};
+				byte[] new_msg_byte = new byte[msg_byte.Length + DUMMY_NDEF.Length];
+				Buffer.BlockCopy(msg_byte, 0, new_msg_byte, 0, msg_byte.Length);
+				Buffer.BlockCopy(DUMMY_NDEF, 0, new_msg_byte, msg_byte.Length, DUMMY_NDEF.Length);
+				msg_byte = new_msg_byte;
 			}
 
 			bool ret = false;
@@ -349,6 +376,7 @@ namespace HandoverWifi_FeliCaLite {
 			//Type3ヘッダ
 			if(ret) {
 				ret = writeType3Head(msg_byte.Length);
+				//ret = writeType3Head(128);
 			}
 
 			return ret;

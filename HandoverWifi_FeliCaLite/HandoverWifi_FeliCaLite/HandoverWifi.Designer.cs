@@ -195,6 +195,7 @@
 			this.textMac.Name = "textMac";
 			this.textMac.Size = new System.Drawing.Size(122, 19);
 			this.textMac.TabIndex = 15;
+			this.textMac.Text = "112233445566";
 			// 
 			// label11
 			// 
