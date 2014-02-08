@@ -132,5 +132,22 @@ namespace FelicaLiteReadWrite {
 
 			writeWidgetEnabled(true);
 		}
+
+        private void FelicaLiteReadWrite_DoubleClick(object sender, EventArgs e)
+        {
+            bool ret = mFNS.pollingF();
+            if (!ret)
+            {
+                MessageBox.Show("Polling fail");
+                writeWidgetEnabled(true);
+                return;
+            }
+            else
+            {
+                textBoxIDm.Text = BitConverter.ToString(mFNS.NfcId);
+                textBoxSc.Text = mLite.SystemCode.ToString("x4");
+            }
+            mFNS.unpoll();
+        }
 	}
 }

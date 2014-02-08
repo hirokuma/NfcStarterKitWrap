@@ -1,0 +1,1170 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NfcStarterKitWrap</name>
+    </assembly>
+    <members>
+        <member name="T:NfcStarterKitWrap.Felica">
+            <summary>
+            FeliCaアクセスクラス。
+            といっても、三者間通信のPUSHしかできない。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.Felica.WRITABLE_SIZE">
+            <summary>
+            書き込み可能サイズ(単位：byte)
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.Felica.READABLE_SIZE">
+            <summary>
+            読み込み可能サイズ(単位：byte)
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.Felica.#ctor(NfcStarterKitWrap.nfc)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="fns">init()済みのNfcStarterKit.nfc</param>
+        </member>
+        <member name="M:NfcStarterKitWrap.Felica.polling">
+            <summary>
+            ポーリング実行
+            </summary>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.Felica.push(System.Byte[],System.Int32)">
+            <summary>
+            三者間通信実施
+            </summary>
+            <param name="data">送信データ。三者間通信のフォーマットに従っていること。</param>
+            <param name="data_len">送信データサイズ。最大224byte。</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.Felica.pushUrl(System.String)">
+            <summary>
+            三者間通信：URL
+            </summary>
+            <param name="url">送信するURL</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="P:NfcStarterKitWrap.Felica.LastError">
+            <summary>
+            (未サポート)
+            </summary>
+        </member>
+        <member name="T:NfcStarterKitWrap.FelicaLite">
+            <summary>
+            FeliCa Liteアクセスクラス。
+            NFC-Fでアクセスする。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_PAD0">
+            <summary>
+            ユーザブロック：PAD0
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_PAD1">
+            <summary>
+            ユーザブロック：PAD1
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_PAD2">
+            <summary>
+            ユーザブロック：PAD2
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_PAD3">
+            <summary>
+            ユーザブロック：PAD3
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_PAD4">
+            <summary>
+            ユーザブロック：PAD4
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_PAD5">
+            <summary>
+            ユーザブロック：PAD5
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_PAD6">
+            <summary>
+            ユーザブロック：PAD6
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_PAD7">
+            <summary>
+            ユーザブロック：PAD7
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_PAD8">
+            <summary>
+            ユーザブロック：PAD8
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_PAD9">
+            <summary>
+            ユーザブロック：PAD9
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_PAD10">
+            <summary>
+            ユーザブロック：PAD10
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_PAD11">
+            <summary>
+            ユーザブロック：PAD11
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_PAD12">
+            <summary>
+            ユーザブロック：PAD12
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_PAD13">
+            <summary>
+            ユーザブロック：PAD13
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_REG">
+            <summary>
+            ユーザブロック：REG
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_RC">
+            <summary>
+            認証機能用ブロック：RC
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_MAC">
+            <summary>
+            認証機能用ブロック：MAC
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_ID">
+            <summary>
+            システムブロック：ID
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_D_ID">
+            <summary>
+            システムブロック：D_ID
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_SER_C">
+            <summary>
+            システムブロック：SER_C
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_SYS_C">
+            <summary>
+            システムブロック：SYS_C
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_CKV">
+            <summary>
+            システムブロック：CKV
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_CK">
+            <summary>
+            システムブロック：CK
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_MC">
+            <summary>
+            システムブロック：MC
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_WCNT">
+            <summary>
+            システムブロック：WCNT
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_MAC_A">
+            <summary>
+            システムブロック：MAC_A
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_STATE">
+            <summary>
+            システムブロック：STATE
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.BLOCK_CRC_CHECK">
+            <summary>
+            システムブロック：CRC_CHECK
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.MASTERKEY_SIZE">
+            <summary>
+            片側認証：マスター鍵サイズ
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.KEYVERSION_SIZE">
+            <summary>
+            片側認証：鍵バージョンサイズ
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FelicaLite.DFD_SIZE">
+            <summary>
+            片側認証：DFDサイズ
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.#ctor(NfcStarterKitWrap.nfc)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="fns">init()済みのNfcStarterKit.nfc</param>
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.Read(System.Byte[]@,System.UInt16)">
+            <summary>
+            読み込み(1ブロック)
+            </summary>
+            <param name="buf">受信バッファ。関数内でnewして返すので、メモリは確保しなくてよい。</param>
+            <param name="block">読み込みブロック</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.Read(System.Byte[]@,System.UInt16[],System.Byte)">
+            <summary>
+            読み込み
+            </summary>
+            <param name="buf">受信バッファ。関数内でnewして返すので、メモリは確保しなくてよい。</param>
+            <param name="block">読み込み先頭ブロック</param>
+            <param name="block_num">読み込みブロック数。blockよりも小さい場合は、blockの先頭からblock_numだけ読み込む。</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.Write(System.Byte[],System.UInt16)">
+            <summary>
+            書き込み(1ブロック)
+            </summary>
+            <param name="buf">書き込みデータ</param>
+            <param name="block">書き込みブロック</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.Write(System.Byte[],System.UInt16,System.Int32)">
+            <summary>
+            書き込み(1ブロック、オフセット付き)
+            </summary>
+            <param name="buf">書き込みデータ</param>
+            <param name="block">書き込みブロック</param>
+            <param name="offset">書き込みデータの開始オフセット</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.Issuance1(System.Byte[],System.Byte[],System.Byte[])">
+            <summary>
+            １次発行(システムブロックの書き換え禁止設定は行わない)
+            </summary>
+            <param name="dfd">DFD</param>
+            <param name="masterKey">個別化マスター鍵(24byte)</param>
+            <param name="keyVersion">鍵バージョン</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.CheckSystemCode">
+            <summary>
+            FeliCa Liteのシステムコードかどうか
+            </summary>
+            <returns>true：FeliCa Liteのシステムコードである</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.CheckIssued">
+            <summary>
+            未発行確認
+            </summary>
+            <returns>true：未発行である</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.CheckMac(System.Byte[])">
+            <summary>
+            MAC比較
+            </summary>
+            <param name="masterKey">比較する個別化マスター鍵(24byte)</param>
+            <returns>true：MAC一致</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.MasterKeyWeakness(System.Byte[])">
+            <summary>
+            個別化マスター鍵の強さ
+            </summary>
+            <param name="masterKey">個別化マスター鍵(24byte)</param>
+            <returns>0：弱い～100：強い</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.writeID(System.Byte[])">
+             ID設定
+            
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.writeWithCheck(System.Byte[],System.UInt16)">
+             チェック付きブロック書き込み(16byte)
+            
+             @param buf		書き込みデータ
+             @param blockNo	書き込みブロック番号
+            
+             @return	true	チェックOK
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.writeCardKey(System.Byte[])">
+             カード鍵書き込み(7.3.4 カード鍵の書き込み)
+            
+             @param masterKey	個別化マスター鍵(24byte)
+            
+             @return
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.writeKeyVersion(System.Byte[])">
+             鍵バージョン書き込み
+            
+             @param keyVersion	鍵バージョン
+            
+             @return		true	書き込み成功
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.macCheck(System.Byte[])">
+             MAC比較(7.3.5 カード鍵の確認)
+            
+             @param ck		CKとして使用する
+            
+             @return		true	MAC一致
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.calcMac(System.Byte[]@,System.Byte[],System.Byte[],System.Byte[])">
+             MAC計算
+            
+             @param mac	MAC計算結果(メモリを割り当てて返す)
+             @param ck	カード鍵(16byte)
+             @param id	ID(16byte)
+             @param rc	ランダムチャレンジブロック(16byte)
+            
+             @return		true	MAC計算成功
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.calcPersonalCardKey(System.Byte[],System.Byte[],System.Byte[])">
+             個別化カード鍵作成
+            
+             @param personalKey	生成した個別化カード鍵(16byte)
+             @param masterKey		個別化マスター鍵(24byte)
+             @param id			IDブロック(16byte)
+            
+             @return		true	作成成功
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.enc83(System.Byte[],System.Int32,System.Byte[],System.Byte[],System.Int32,System.Byte[])">
+             Triple-DES暗号化
+            
+             @param outBuf		暗号化出力バッファ(8byte以上)
+             @param outOffset		暗号化出力バッファへの書き込み開始位置(ここから8byte書く)
+             @param key			秘密鍵(24byte [0-7]KEY1, [8-15]KEY2, [16-23]KEY1)
+             @param inBuf			平文バッファ(8byte以上)
+             @param inOffset		平文バッファの読み込み開始位置(ここから8byte読む)
+             @param ips			初期ベクタ(8byte)
+            
+             @return		true	暗号化成功
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.enc8(System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+             DES暗号化
+            
+             @param outBuf		暗号化出力バッファ(8byte以上)
+             @param key			秘密鍵(8byte)
+             @param inBuf			平文バッファ(8byte以上)
+             @param ips			初期ベクタ(8byte)
+            
+             @return		true	暗号化成功
+        </member>
+        <member name="M:NfcStarterKitWrap.FelicaLite.dec8(System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+             DES復号化
+            
+             @param outBuf		暗号化出力バッファ(8byte以上)
+             @param key			秘密鍵(8byte)
+             @param inBuf			平文バッファ(8byte以上)
+             @param ips			初期ベクタ(8byte)
+            
+             @return		true	復号化成功
+        </member>
+        <member name="P:NfcStarterKitWrap.FelicaLite.LastError">
+            <summary>
+            (未サポート)
+            </summary>
+        </member>
+        <member name="P:NfcStarterKitWrap.FelicaLite.SystemCode">
+            <summary>
+            システムコード
+            </summary>
+        </member>
+        <member name="T:DEVICE_DATA_NFC_14443A_18092_106K">
+            <summary>
+            DEVICE_DATA_NFC_14443A_18092_106K
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_14443A_18092_106K.target_number">
+            <summary>
+            ターゲット数
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_14443A_18092_106K.sens_res">
+            <summary>
+            SENS_RES
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_14443A_18092_106K.sel_res">
+            <summary>
+            SEL_RES
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_14443A_18092_106K.NFCID1_size">
+            <summary>
+            NFCID1サイズ
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_14443A_18092_106K.NFCID1">
+            <summary>
+            NFCID1
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_14443A_18092_106K.ATS_size">
+            <summary>
+            ATSサイズ
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_14443A_18092_106K.ATS">
+            <summary>
+            ATS
+            </summary>
+        </member>
+        <member name="T:DEVICE_DATA_NFC_14443B_106K">
+            <summary>
+            DEVICE_DATA_NFC_14443B_106K
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_14443B_106K.target_number">
+            <summary>
+            ターゲット数
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_14443B_106K.ATQB">
+            <summary>
+            ATQB
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_14443B_106K.ATTRIB_size">
+            <summary>
+            ATTRIBサイズ
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_14443B_106K.ATTRIB">
+            <summary>
+            ATTRIB
+            </summary>
+        </member>
+        <member name="T:DEVICE_DATA_NFC_18092_212_424K">
+            <summary>
+            DEVICE_DATA_NFC_18092_212_424K
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_18092_212_424K.id">
+            <summary>
+            ID?
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_18092_212_424K.target_number">
+            <summary>
+            ターゲット数
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_18092_212_424K.NFCID2">
+            <summary>
+            NFCID2(IDm)
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_18092_212_424K.Pad">
+            <summary>
+            PAD(PMm?)
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_18092_212_424K.RD_size">
+            <summary>
+            RDサイズ
+            </summary>
+        </member>
+        <member name="F:DEVICE_DATA_NFC_18092_212_424K.RD">
+            <summary>
+            RD
+            </summary>
+        </member>
+        <member name="T:DEVICE_INFO">
+            <summary>
+            DEVICE_INFO
+            </summary>
+        </member>
+        <member name="F:DEVICE_INFO.target_device">
+            <summary>
+            ターゲット数
+            </summary>
+        </member>
+        <member name="F:DEVICE_INFO.dev_info">
+            <summary>
+            デバイス情報
+            </summary>
+        </member>
+        <member name="T:NfcStarterKitWrap.FormWaiting">
+            <summary>
+            とりあえず「かざして」画面を出すことにした。
+            キャンセルはできない。。。
+            </summary>
+        </member>
+        <member name="T:NfcStarterKitWrap.nfc.ListenerWindow">
+            <summary>
+            メッセージを受け取るウィンドウ
+            </summary>
+        </member>
+        <member name="T:NfcStarterKitWrap.nfc">
+            <summary>
+            felica_nfc_dll_wrapper_basicのラッパクラス
+            SDK for NFC Starter KitのAPIを直接アクセスするのが面倒なので作った。
+            </summary>
+            
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.DEVICE_TYPE_NFCA">
+            <summary>
+            NFC-Aをポーリングする。
+            polling()の引数に使用する。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.DEVICE_TYPE_NFCB">
+            <summary>
+            NFC-Bをポーリングする。
+            polling()の引数に使用する。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.DEVICE_TYPE_NFCF_212K">
+            <summary>
+            NFC-Fを212Kbpsでポーリングする。
+            polling()の引数に使用する。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.DEVICE_TYPE_NFCF_424K">
+            <summary>
+            NFC-Fを424Kbpsでポーリングする。
+            polling()の引数に使用する。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.DEVICE_TYPE_MIFARE">
+            <summary>
+            Mifareをポーリングする。
+            polling()の引数に使用する。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.DEVICE_TYPE_FELICA_212K">
+            <summary>
+            FeliCaを212Kbpsでポーリングする。
+            polling()の引数に使用する。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.DEVICE_TYPE_FELICA_424K">
+            <summary>
+            FeliCaを424Kbpsでポーリングする。
+            polling()の引数に使用する。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.DEVICE_TYPE_FELICA">
+            <summary>
+            FeliCaをポーリングする。
+            polling()の引数に使用する。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.NFCID0_SIZE">
+            <summary>
+            [NFC-B]NFCID0の最大サイズ(単位：byte)。
+            4byte固定。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.NFCID1_SIZE">
+            <summary>
+            [NFC-A]NFCID1の最大サイズ(単位：byte)。
+            simple:4byte / double:7byte / triple:10byte
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.NFCID2_SIZE">
+            <summary>
+            [NFC-F]NFCID2のサイズ(単位：byte)。
+            8byte固定。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.NFCID_SIZE_MAX">
+            <summary>
+            NFCIDの最大サイズ。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.BLOCK_SIZE">
+            <summary>
+            メモリアクセス時の最大ブロックサイズ(単位：byte)
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.READABLE_SIZE_NFCA">
+            <summary>
+            [NFC-A]１回で読み込むことができるサイズ(単位：byte)
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.WRITABLE_SIZE_NFCA">
+            <summary>
+            [NFC-A]１回で書き込むことができるサイズ(単位：byte)
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.READABLE_SIZE_NFCF">
+            <summary>
+            [NFC-F]１回で読み込むことができるサイズ(単位：byte)
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.WRITABLE_SIZE_NFCF">
+            <summary>
+            [NFC-F]１回で書き込むことができるサイズ(単位：byte)
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.RD_SELRES">
+            <summary>
+            [NFC-A]RD配列のSEL_RES要素番号。
+            RD[RD_SELRES]のように使う。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.RD_SYSCODE1">
+            <summary>
+            [NFC-F]RD配列のシステムコード(1byte目)要素番号。
+            RD[RD_SYSCODE1]のように使う。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.RD_SYSCODE2">
+            <summary>
+            [NFC-F]RD配列のシステムコード(2byte目)要素番号。
+            RD[RD_SYSCODE2]のように使う。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.SERVICE_READONLY_NFCF">
+            <summary>
+            [NFC-F]サービス：ReadOnly
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.nfc.SERVICE_READWRITE_NFCF">
+            <summary>
+            [NFC-F]サービス：Read/Write
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.#ctor">
+            <summary>
+            コンストラクタ。
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.init(System.Windows.Forms.Form)">
+            <summary>
+            初期化
+            </summary>
+            <param name="frm">親ウィンドウ。「かざして」画面を中央に出せる。</param>
+            <returns></returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.init">
+            <summary>
+            初期化。
+            最初に必ず呼び出すこと。
+            </summary>
+            <returns>初期化処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.term">
+            <summary>
+            終了処理。
+            init()後は、アプリ終了時までに呼び出すこと
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.setTimeout(System.UInt32)">
+            <summary>
+            タイムアウト時間の設定
+            </summary>
+            <param name="time">タイムアウト時間(単位：ミリ秒)</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.polling(System.UInt32)">
+            <summary>
+            指定されたpolling実効。
+            成功した場合、NFCIDとRDが更新される。
+            失敗した場合、NFCIDとRDはnullになる。
+            </summary>
+            <param name="target_device">DEVICE_TYPE_XXX</param>
+            <returns>ポーリング結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.pollingA">
+            <summary>
+            polling(NFC-A用)
+            </summary>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.pollingF">
+            <summary>
+            polling(NFC-F用)
+            </summary>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.unpoll">
+            <summary>
+            polling後、カードを使い終わったら呼び出す。
+            呼び出さなかった場合、次にpollingしたときの動作が遅くなる。
+            NFCIDとRDをnullにする。
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.ErrorRoutine">
+            <summary>
+            SDK for NFC Starter Kitが返すエラー。
+            コンソールに出すようになっているが、どうしたもんだか。
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.NfcA_Read(System.Byte[]@,System.Byte)">
+            <summary>
+            読み込み(NFC-A用)
+            16byte読み込む。
+            </summary>
+            <param name="buf">読み込み結果。newして返すのでメモリを確保する必要はない。</param>
+            <param name="block">読み込むブロック番号(値チェックなし)</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.NfcA_Write(System.Byte[],System.Byte)">
+            <summary>
+            書き込み(NFC-A用)
+            4byte書き込む。
+            </summary>
+            <param name="buf">書き込みデータ</param>
+            <param name="block">書き込み先ブロック(値チェックなし)</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.NfcF_Read(System.Byte[]@,System.UInt16[],System.Byte,System.Byte[])">
+            <summary>
+            読み込み(NFC-F用)
+            面倒なので、サービスは１種類にしている。
+            </summary>
+            <param name="buf">受信バッファ。関数内でnewして返すので、メモリは確保しなくてよい。</param>
+            <param name="block">読み込み開始ブロック</param>
+            <param name="block_num">読み込みブロック数。blockよりも小さい場合は、blockの先頭からblock_numだけ読み込む。</param>
+            <param name="svc">サービス。ServiceReadOnlyNfcFかServiceReadWriteNfcFがよいだろう。</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.NfcF_Write(System.Byte[],System.UInt16[],System.Byte,System.Byte[])">
+            <summary>
+            書き込み(NFC-F用)
+            面倒なので、サービスは１種類にしている。
+            </summary>
+            <param name="buf">書き込みデータ</param>
+            <param name="block">書き込み開始ブロック</param>
+            <param name="block_num">書き込みブロック数。blockよりも小さい場合は、blockの先頭からblock_numだけ書き込む。</param>
+            <param name="svc">サービス。ServiceReadWriteNfcFがよいだろう。</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.NfcF_Write(System.Byte[],System.UInt16[],System.Byte,System.Byte[],System.Int32)">
+            <summary>
+            書き込み(NFC-F用)
+            面倒なので、サービスは１種類にしている。
+            </summary>
+            <param name="buf">書き込みデータ</param>
+            <param name="block">書き込み開始ブロック</param>
+            <param name="block_num">書き込みブロック数。blockよりも小さい場合は、blockの先頭からblock_numだけ書き込む。</param>
+            <param name="svc">サービス。ServiceReadWriteNfcFがよいだろう。</param>
+            <param name="offset">bufのオフセット</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.CreateBlockList2(System.UInt16,System.Byte)">
+            <summary>
+            [NFC-F]2バイトブロックリストを作る
+            </summary>
+            <param name="block">ブロック番号</param>
+            <param name="svc_num">サービス</param>
+            <returns>2バイトブロックリスト値</returns>
+        </member>
+        <member name="P:NfcStarterKitWrap.nfc.felica_nfc">
+            <summary>
+            felica_nfc_dll_wrapperを取得する。
+            直接SDK for NFC Starter Kitを制御したい場合に用いる。
+            </summary>
+        </member>
+        <member name="P:NfcStarterKitWrap.nfc.NfcId">
+            <summary>
+            取得した最新のNFCID。IDmなど。
+            nullもあり得る。
+            polling()成功時に更新。
+            unpoll()したときにしか消さない。
+            </summary>
+        </member>
+        <member name="P:NfcStarterKitWrap.nfc.RD">
+            <summary>
+            取得したRequest Data(RD)。
+            MifareならSEL_RES。
+            FeliCaならシステムコード。
+            </summary>
+        </member>
+        <member name="T:NfcStarterKitWrap.nfc.MessageReceivedEventArgs">
+            <summary>
+            使うな
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.MessageReceivedEventArgs.#ctor(System.Windows.Forms.Message)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="P:NfcStarterKitWrap.nfc.MessageReceivedEventArgs.Message">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:NfcStarterKitWrap.nfc.ListenerWindow">
+            <summary>
+            メッセージを受け取るウィンドウ
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.ListenerWindow.#ctor">
+            <summary>
+            内部用
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.ListenerWindow.init(System.String,System.String,NfcStarterKitWrap.nfc.MessageHandler@)">
+            <summary>
+            初期化
+            </summary>
+            <param name="msgFind">Windowメッセージ文字列(カード検出)</param>
+            <param name="msgEnable">Windowメッセージ文字列(カード使用可能)</param>
+            <param name="msgHandler">メッセージ処理ハンドラ</param>
+            <returns></returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.ListenerWindow.WndProc(System.Windows.Forms.Message@)">
+            <summary>
+            Windowメッセージ処理
+            </summary>
+            <param name="m"></param>
+        </member>
+        <member name="T:NfcStarterKitWrap.nfc.MessageHandler">
+            <summary>
+            メッセージハンドラクラス
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.MessageHandler.#ctor(System.UInt32,System.UInt32)">
+            <summary>
+            コンストラクタ。
+            </summary>
+            <param name="findMsg"></param>
+            <param name="enableMsg"></param>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.MessageHandler.messageHandlerFunc(System.Object,NfcStarterKitWrap.nfc.MessageReceivedEventArgs)">
+            <summary>
+            メッセージハンドラ本体
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.MessageHandler.detectNfcA(System.IntPtr)">
+            <summary>
+            ポーリング結果がNFC-Aだった場合
+            </summary>
+            <param name="pDeviceData">DEVICE_INFO.dev_infoへのポインタ</param>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.MessageHandler.detectNfcF(System.IntPtr)">
+            <summary>
+            ポーリング結果がNFC-Fだった場合
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.nfc.MessageHandler.ErrorRoutine">
+            <summary>
+            SDK for NFC Starter Kitが返すエラー。
+            コンソールに出すようになっているが、どうしたもんだか。
+            </summary>
+        </member>
+        <member name="P:NfcStarterKitWrap.nfc.MessageHandler.Result">
+            <summary>
+            ポーリング結果
+            </summary>
+        </member>
+        <member name="P:NfcStarterKitWrap.nfc.MessageHandler.NfcId">
+            <summary>
+            NFCID
+            </summary>
+        </member>
+        <member name="P:NfcStarterKitWrap.nfc.MessageHandler.RD">
+            <summary>
+            Request Data
+            </summary>
+        </member>
+        <member name="P:NfcStarterKitWrap.nfc.MessageHandler.TargetDevice">
+            <summary>
+            ポーリングで検出したターゲット。
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.FormWaiting.#ctor">
+            <summary>
+            コンストラクタ
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.FormWaiting.components">
+            <summary>
+            必要なデザイナー変数です。
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.FormWaiting.Dispose(System.Boolean)">
+            <summary>
+            使用中のリソースをすべてクリーンアップします。
+            </summary>
+            <param name="disposing">マネージ リソースが破棄される場合 true、破棄されない場合は false です。</param>
+        </member>
+        <member name="M:NfcStarterKitWrap.FormWaiting.InitializeComponent">
+            <summary>
+            デザイナー サポートに必要なメソッドです。このメソッドの内容を
+            コード エディターで変更しないでください。
+            </summary>
+        </member>
+        <member name="T:NfcStarterKitWrap.MifareClassic">
+            <summary>
+            Mifare Classicアクセスクラス。
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.MifareClassic.WRITABLE_SIZE">
+            <summary>
+            書き込み可能サイズ(単位：byte)
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.MifareClassic.READABLE_SIZE">
+            <summary>
+            読み込み可能サイズ(単位：byte)
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.MifareClassic.CMD_AUTHA">
+            <summary>
+            Authentication with Key A
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.MifareClassic.CMD_AUTHB">
+            <summary>
+            Authentication with Key B
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.MifareClassic.#ctor(NfcStarterKitWrap.nfc)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="fns">init()済みのNfcStarterKit.nfc</param>
+        </member>
+        <member name="M:NfcStarterKitWrap.MifareClassic.polling">
+            <summary>
+            ポーリング
+            </summary>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.MifareClassic.Auth(System.Byte,System.Byte)">
+            <summary>
+            Authentication with Key Aをデフォルト値で実施
+            </summary>
+            <param name="sector">セクタ</param>
+            <param name="block">ブロック</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.MifareClassic.Auth(System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Authenticationをデフォルト値で実施
+            </summary>
+            <param name="auth">鍵の種類。CMD_AUTHx。</param>
+            <param name="sector">セクタ</param>
+            <param name="block">ブロック</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.MifareClassic.Auth(System.Byte,System.Byte,System.Byte[])">
+            <summary>
+            Authentication
+            </summary>
+            <param name="sector">セクタ</param>
+            <param name="block">ブロック</param>
+            <param name="key">鍵</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.MifareClassic.Auth(System.Byte,System.Byte,System.Byte,System.Byte[])">
+            <summary>
+            Authentication
+            </summary>
+            <param name="auth">鍵の種類。CMD_AUTHx。</param>
+            <param name="sector">セクタ</param>
+            <param name="block">ブロック</param>
+            <param name="key">鍵</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.MifareClassic.Auth(System.Byte,System.Byte,System.Byte,System.Byte[],System.Byte[])">
+            <summary>
+            Authentication
+            </summary>
+            <param name="auth">鍵の種類。CMD_AUTHx。</param>
+            <param name="sector">セクタ</param>
+            <param name="block">ブロック</param>
+            <param name="uid">UID</param>
+            <param name="key">鍵</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.MifareClassic.Auth(System.Byte,System.Byte,System.Byte[],System.Byte[])">
+            <summary>
+            Authentication
+            </summary>
+            <param name="auth">鍵の種類。CMD_AUTHx。</param>
+            <param name="addr">アドレス</param>
+            <param name="uid">UID</param>
+            <param name="key">鍵</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.MifareClassic.Read(System.Byte[]@,System.Byte,System.Byte)">
+            <summary>
+            読み込み
+            </summary>
+            <param name="buf">読み込み結果。newして返すのでメモリを確保する必要はない。</param>
+            <param name="sector">セクタ</param>
+            <param name="block">ブロック</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.MifareClassic.Write(System.Byte[],System.Byte,System.Byte)">
+            <summary>
+            書き込み
+            </summary>
+            <param name="buf">書き込みデータ</param>
+            <param name="sector">セクタ</param>
+            <param name="block">ブロック</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="P:NfcStarterKitWrap.MifareClassic.LastError">
+            <summary>
+            (未サポート)
+            </summary>
+        </member>
+        <member name="T:NfcStarterKitWrap.MifareUltralight">
+            <summary>
+            Mifare Ultralightアクセスクラス
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.MifareUltralight.WRITABLE_SIZE">
+            <summary>
+            書き込み可能サイズ(単位：byte)
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.MifareUltralight.READABLE_SIZE">
+            <summary>
+            読み込み可能サイズ(単位：byte)
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.MifareUltralight.#ctor(NfcStarterKitWrap.nfc)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <param name="fns">init()済みのNfcStarterKit.nfc</param>
+        </member>
+        <member name="M:NfcStarterKitWrap.MifareUltralight.Read(System.Byte[]@,System.Byte)">
+            <summary>
+            読み込み
+            </summary>
+            <param name="buf">読み込み結果。newして返すのでメモリを確保する必要はない。</param>
+            <param name="block">ブロック</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.MifareUltralight.Write(System.Byte[],System.Byte)">
+            <summary>
+            書き込み
+            </summary>
+            <param name="buf">書き込みデータ</param>
+            <param name="block">ブロック</param>
+            <returns>処理結果</returns>
+        </member>
+        <member name="P:NfcStarterKitWrap.MifareUltralight.LastError">
+            <summary>
+            (未サポート)
+            </summary>
+        </member>
+        <member name="T:NfcStarterKitWrap.NdefMessage">
+            <summary>
+            NDEFメッセージ
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.NdefMessage.Add(NfcStarterKitWrap.NdefRecord)">
+            <summary>
+            NDEFレコード追加
+            </summary>
+            <param name="rec"></param>
+        </member>
+        <member name="M:NfcStarterKitWrap.NdefMessage.getMessage">
+            <summary>
+            NDEFメッセージ全体取得
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:NfcStarterKitWrap.NdefMessage.Record">
+            <summary>
+            NDEFレコード
+            </summary>
+        </member>
+        <member name="T:NfcStarterKitWrap.NdefRecord">
+            <summary>
+            NDEFレコード(Shortのみ)
+            </summary>
+        </member>
+        <member name="M:NfcStarterKitWrap.NdefRecord.setType(NfcStarterKitWrap.NdefRecord.TNF_TYPE,System.Byte[])">
+            <summary>
+            Type設定
+            </summary>
+            <param name="tnf">TNF</param>
+            <param name="type">タイプデータ</param>
+        </member>
+        <member name="M:NfcStarterKitWrap.NdefRecord.setRecord(System.Byte[])">
+            <summary>
+            NDEFレコードからNdefRecordを構築
+            </summary>
+            <param name="rec"></param>
+        </member>
+        <member name="M:NfcStarterKitWrap.NdefRecord.getRecord">
+            <summary>
+            NDEFレコードバイナリデータ取得
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NfcStarterKitWrap.NdefRecord.getLength">
+            <summary>
+            NDEFレコード長取得
+            </summary>
+            <returns>NDEFレコード長</returns>
+        </member>
+        <member name="P:NfcStarterKitWrap.NdefRecord.MB">
+            <summary>
+            Message Begin
+            </summary>
+        </member>
+        <member name="P:NfcStarterKitWrap.NdefRecord.ME">
+            <summary>
+            Message End
+            </summary>
+        </member>
+        <member name="P:NfcStarterKitWrap.NdefRecord.CF">
+            <summary>
+            Chunk Flag
+            </summary>
+        </member>
+        <member name="P:NfcStarterKitWrap.NdefRecord.SR">
+            <summary>
+            Short Record
+            </summary>
+        </member>
+        <member name="P:NfcStarterKitWrap.NdefRecord.ID">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:NfcStarterKitWrap.NdefRecord.Payload">
+            <summary>
+            Payload
+            </summary>
+        </member>
+        <member name="T:NfcStarterKitWrap.NdefRecord.TNF_TYPE">
+            <summary>
+            TNF
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.NdefRecord.TNF_TYPE.EMPTY">
+            <summary>
+            EMPTY
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.NdefRecord.TNF_TYPE.WKS">
+            <summary>
+            Well-Known
+            </summary>
+        </member>
+        <member name="F:NfcStarterKitWrap.NdefRecord.TNF_TYPE.MIME">
+            <summary>
+            MIME
+            </summary>
+        </member>
+    </members>
+</doc>
